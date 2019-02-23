@@ -14,6 +14,11 @@ Please try to keep the list of names of organizers and event hosts sorted alphab
 
 Hope to see you next time.
 
+Join Us on meetup.com
+---------------------
+
+https://meetup.com/golang-amsterdam/
+
 Join Us on Slack
 -----------------
 
