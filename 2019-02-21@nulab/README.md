@@ -47,7 +47,7 @@ Event Hosts
 
 Organizers
 ----------
-* [Ernest Micklei](https://github.com/brocaar)
+* [Ernest Micklei](https://github.com/emicklei)
 * [Ilija Matoski](https://github.com/ilijamt)
 * [Mechiel Lukkien](https://github.com/mjl-)
 * [Orne Brocaar](https://github.com/brocaar)
