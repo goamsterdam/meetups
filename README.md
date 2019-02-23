@@ -1,2 +1,30 @@
-# meetups
-Golang Amsterdam Meetup related resources
+Golang Amsterdam
+----------------
+
+Please maintain the list in a descending order based on the date the meetup has been held.
+
+| Date                   | Location                    | Resources                           |
+|------------------------|-----------------------------|-------------------------------------|
+| 2019-02-21 18:00-20:00 | [Nulab](https://nulab.com)  | [Here](2019-02-21@nulab/README.md)  |
+
+
+Please send us a PR if we are missing some presentation or if some details are not correct.
+
+Please try to keep the list of names of organizers and event hosts sorted alphabetically. 
+
+Hope to see you next time.
+
+Join Us on Slack
+-----------------
+
+```
+https://invite.slack.golangbridge.org
+/join #amsterdam
+```
+
+![Join Us](qr.png?raw=true "QR Code")
+
+ORGANIZERS
+----------
+
+You can find all the awesome details about the organizers [here](ORGANIZERS). 
