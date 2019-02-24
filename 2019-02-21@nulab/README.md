@@ -34,7 +34,7 @@ Resources
 
 * [Report from FOSDEM and GopherCon Israel - FOSDEM, GopherCon Israel](Report%20from%20FOSDEM%20and%20GopherCon%20Israel%20-%20Taavi%20Kivisik.pdf) by Taavi Kivisik
 
-* [Building a cloud of fares]() by Ralph Ligtenberg, Travix
+* [Building a cloud of fares](Building%20a%20cloud%20of%20fares%20-%20Ralph%20Ligtenberg.pdf) by Ralph Ligtenberg, Travix
 
   You will hear the story behind a Travix project called FareCache, why it was originally set up as a C# micro-monolith and how it got migrated to a bunch of Go micro-services in the Google Cloud.
 
