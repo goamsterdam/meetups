@@ -15,7 +15,7 @@ Talks
 
 * [High performance Go](todo) by Erik Dubbelboer
 
-* [GoDDD - godoc driven development](todo) by Antti Kupila
+* [GoDDD - godoc driven development](GoDDD.pdf) by Antti Kupila
 
 
 Lightning talks
