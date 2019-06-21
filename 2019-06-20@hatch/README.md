@@ -11,9 +11,9 @@ Danzigerbocht 39-L
 Talks
 -----
 
-* [Structuring your Go project](todo) by Ruba Zeibak
+* "Structuring your Go project" by Ruba Zeibak
 
-* [High performance Go](todo) by Erik Dubbelboer
+* [High performance Go](https://dubbelboer.com/talks/2019-05-20-go-performance-ams/#1) by Erik Dubbelboer
 
 * [GoDDD - godoc driven development](GoDDD.pdf) by Antti Kupila
 
@@ -21,6 +21,6 @@ Talks
 Lightning talks
 ---------------
 
-* [Ergo, a cli tool for daily developer workflow](todo) by Dimitris Baltas
+* "Ergo, a cli tool for daily developer workflow" by Dimitris Baltas
 
-* [Don’t panic(). It’s just an error](todo) by Merten van Gerven
+* "Don’t panic(). It’s just an error" by Merten van Gerven
