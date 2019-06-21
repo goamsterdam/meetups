@@ -13,7 +13,7 @@ Talks
 
 * [Structuring your Go project](structure.pdf) by Ruba Zeibak
 
-* [High performance Go](Tips and Tricks for High performance Go.pdf) by Erik Dubbelboer
+* [High performance Go](Tips%20and%20Tricks%20for%20High%20performance%20Go.pdf) by Erik Dubbelboer
 
 * [GoDDD - godoc driven development](GoDDD.pdf) by Antti Kupila
 
