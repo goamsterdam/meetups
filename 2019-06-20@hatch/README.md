@@ -11,7 +11,7 @@ Danzigerbocht 39-L
 Talks
 -----
 
-* "Structuring your Go project" by Ruba Zeibak
+* [Structuring your Go project](structure.pdf) by Ruba Zeibak
 
 * [High performance Go](https://dubbelboer.com/talks/2019-05-20-go-performance-ams/#1) by Erik Dubbelboer
 
