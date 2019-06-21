@@ -23,4 +23,4 @@ Lightning talks
 
 * "Ergo, a cli tool for daily developer workflow" by Dimitris Baltas
 
-* "Don’t panic(). It’s just an error" by Merten van Gerven
+* ["Don’t panic(). It’s just an error"](dont-panic-its-just-an-error.pdf) by Merten van Gerven
