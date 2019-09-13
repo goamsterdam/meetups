@@ -5,6 +5,7 @@ Please maintain the list in a descending order based on the date the meetup has 
 
 | Date                   | Location                    | Resources                           |
 |------------------------|-----------------------------|-------------------------------------|
+| 2019-09-12 18:00-21:00 | [Kramp Hub](https://kramphub.com)  | [Here](2019-09-12@kramphub/README.md)  |
 | 2019-06-20 18:00-21:00 | [Hatch](https://hatchstudio.co/)  | [Here](2019-06-20@hatch/README.md)  |
 | 2019-04-25 18:00-21:00 | [MessageBird](https://www.messagebird.com)  | [Here](2019-04-25@messagebird/README.md)  |
 | 2019-02-21 18:00-20:00 | [Nulab](https://nulab.com)  | [Here](2019-02-21@nulab/README.md)  |
