@@ -15,7 +15,7 @@ Lightning Talks
 
 * Reproducible Builds, by Mechiel Lukkien
 
-* Goroutines for Speed, by Erik Dubbelboer
+* [Goroutines for Speed](Goroutines%20for%20Speed.pdf), by Erik Dubbelboer
 
 * How Ernest Micklei Became a Google Developer Expert in Go? Taavi Kivisik asks
 
@@ -25,7 +25,7 @@ Talks
 
 * Challenges developing a GraphQL server in Go using maturing OS packages, by Ernest Micklei
 
-* Gitaly: a Git gRPC service, by Jacob Vosmaer
+* [Gitaly: a Git gRPC service](Gitaly%20-%20a%20Git%20gRPC%20service.pdf), by Jacob Vosmaer
 
 * Go Easy on Your Browser, by Jonathan Hall
 
