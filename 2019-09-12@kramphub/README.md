@@ -13,7 +13,7 @@ Jaarbeursplein 6
 Lightning Talks
 ---------------
 
-* Reproducible Builds, by Mechiel Lukkien
+* [Reproducible Builds](reproducible-builds.slide), by Mechiel Lukkien
 
 * [Goroutines for Speed](Goroutines%20for%20Speed.pdf), by Erik Dubbelboer
 
