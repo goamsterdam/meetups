@@ -27,7 +27,7 @@ Talks
 
 * [Gitaly: a Git gRPC service](Gitaly%20-%20a%20Git%20gRPC%20service.pdf), by Jacob Vosmaer
 
-* Go Easy on Your Browser, by Jonathan Hall
+* [Go Easy on Your Browser](GoEasyOnYourBrowser.pdf), by Jonathan Hall
 
 * [Readying your Go webservice](RL_ReadyingYourGoWebservice.pdf), by Ralph Ligtenberg
 
