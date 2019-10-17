@@ -3,6 +3,7 @@ Golang Amsterdam
 
 Please maintain the list in a descending order based on the date the meetup has been held.
 
+* [2019-10-17 at Schuberg Philis](2019-10-17@schuberg-philis/README.md)
 * [2019-09-12 at Kramp Hub](2019-09-12@kramphub/README.md)
 * [2019-06-20 at Hatch](2019-06-20@hatch/README.md)
 * [2019-04-25 at MessageBird](2019-04-25@messagebird/README.md)
