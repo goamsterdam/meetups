@@ -8,9 +8,10 @@ Location
 Boeing Avenue 271, 
 1119 PD Schiphol-Rijk
 
-
 Talks
 -----
+
+* [Event host slides](Host.pdf), by Ilija Matoski
 
 * OpenTracing, by Koray Sariteke
 
