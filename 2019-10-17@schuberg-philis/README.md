@@ -17,4 +17,4 @@ Talks
 
 * [Middleware for gRPC servers](Middleware%20for%20gRPC%20servers%20-%20Jacob%20Vosmaer.pdf), by Jacob Vosmaer
 
-* Vmgo - go unikernels, by Mechiel Lukkien
+* [Vmgo - go unikernels](vmgo.pdf), by Mechiel Lukkien
