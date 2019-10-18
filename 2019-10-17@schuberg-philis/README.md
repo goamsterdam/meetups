@@ -13,7 +13,7 @@ Talks
 
 * [Event host slides](Host.pdf), by Ilija Matoski
 
-* OpenTracing, by Koray Sariteke
+* [OpenTracing](OpenTracing.pdf), by Koray Sariteke
 
 * [Middleware for gRPC servers](Middleware%20for%20gRPC%20servers%20-%20Jacob%20Vosmaer.pdf), by Jacob Vosmaer
 
