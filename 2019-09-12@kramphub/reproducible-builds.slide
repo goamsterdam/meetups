@@ -1,0 +1,108 @@
+Reproducible builds
+with Go
+12 Sep 2019
+
+Mechiel Lukkien
+
+
+* What are ...?
+
+- Get the exact same result every time you build.
+
+
+* Example
+
+	$ go build
+	$ sha256sum helloworld
+	1bbb17feca46049e90fd70299206e37d876678e49931c7b230ce0e35c2a70f2b  helloworld
+
+
+* Why?
+
+- Verify code with binary.
+
+
+* Why not in practice?
+
+- Dependencies
+- Timestamps
+- Deterministic compiler
+
+
+* In Go
+
+- Possible
+- Even easy
+- But caveats apply
+
+
+* Caveats
+
+1. Paths in binary
+2. BuildID in binary
+3. cgo
+
+
+* 1. Paths
+
+- Location of build
+
+
+* 1. Paths - for panic
+
+        $ ./helloworld
+        panic: runtime error: index out of range [1] with length 1
+
+        goroutine 1 [running]:
+        main.main()
+                /home/mjl/code/helloworld/helloworld.go:9 +0xcf
+
+* 1. Paths - trimpath
+
+	$ go build -trimpath
+
+* 1. Paths - trimpath - panic
+	
+        $ ./howdy
+        panic: runtime error: index out of range [1] with length 1
+
+        goroutine 1 [running]:
+        main.main()
+                helloworld@/helloworld.go:9 +0xcf
+
+Go modules must be enabled!
+
+
+* 2. BuildID
+
+
+	$ go tool buildid helloworld
+	1Qzp3aRnz2D15nAT1XFy/h1jHto7rUs3hlceGgY2y/AV80yuYo1Qk0IuR_IlMg/A-NJGGhsJxCbXjWv9w-P
+
+
+* 2. BuildID - clear it
+
+        $ z=00000000000000000000
+        $ go build -ldflags -buildid=$z/$z/$z/$z
+
+* 3. cgo
+
+- Possible
+- Host OS toolchain
+- Cross compilation
+
+
+* Conclusion
+
+Give it a try!
+
+        $ z=00000000000000000000
+        $ CGO_ENABLED=0 go build -trimpath -ldflags -buildid=$z/$z/$z/$z
+
+
+* More
+
+- buildid: https://github.com/golang/go/blob/master/src/cmd/go/internal/work/buildid.go#L23
+- reproducible builds: https://reproducible-builds.org/
+- adventure with go: https://blog.filippo.io/reproducing-go-binaries-byte-by-byte/
+- serve reproducibly built binaries: https://github.com/mjl-/gobuild
