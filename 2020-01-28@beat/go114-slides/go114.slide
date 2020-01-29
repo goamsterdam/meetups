@@ -1,0 +1,134 @@
+What's new in Go 1.14
+Go Amsterdam meetup
+28 Jan 2020
+
+Mechiel Lukkien
+mechiel@ueber.net
+
+
+* When will Go 1.14 be released?
+
+Schedule vs reality
+
+        Work begins     1 August 2019
+        Freeze          1 November 2019
+        Beta1           1 December 2019         17 December 2019
+        RC1             1 January 2020          Not yet!
+        Release         1 February 2020         
+
+.image img/rocket.jpg _ 300
+
+
+* Try the beta!
+
+	$ go get golang.org/dl/go1.14beta1
+	$ go1.14beta1 download
+
+Now use:
+
+	$ go1.14beta1 build
+
+
+* Language: Allow embedding overlapping interfaces
+
+	type T1 interface {
+		String() string
+		Some()
+	}
+
+	type T2 interface {
+		String() string
+		Other()
+	}
+
+	type Combined interface {
+		T1
+		T2
+	}
+
+ 
+
+	$ go1.13 build
+	./overlapping.go:13:9: duplicate method String
+
+ 
+
+	$ go1.14 build
+
+
+* Improvements to Go modules
+
+If vendor/ exists, -mod=vendor is automatic
+
+	$ ls
+	go.mod
+	main.go
+	vendor/
+
+	$ go1.13 build -mod=vendor
+	
+	$ go1.14 build
+
+
+
+* Faster defer (1/2)
+
+Optimization: Open-coded defers
+
+	func work(b bool) {
+		defer cleanup1()
+
+		if b {
+			defer cleanup2()
+		}
+
+		return realwork()
+	}
+
+
+* Faster defer (2/2)
+
+Defers:
+
+	  With normal (stack-allocated) defers only:         35.4  ns/op
+	  With open-coded defers:                             5.6  ns/op
+	  Cost of function call alone (remove defer keyword): 4.4  ns/op
+
+Panic and recover:
+
+	  Without open-coded defers:        62.0 ns/op
+	  With open-coded defers:           255  ns/op
+
+from https://golang.org/cl/190098
+
+
+# rationale: developers avoid defer in hot paths.
+
+#When defer statement is reached, store parameters in stack slots, mark in stack-variable deferBits.
+#On function exit, check deferBits and call defered statements.
+
+#Not when: many defers, many exit points from function, defers in loops.
+
+
+* Goroutines asyncronously preemptible
+
+non-cooperative scheduling
+
+	func f() {
+		for {
+			...
+		}
+	}
+
+
+Details:
+
+https://github.com/golang/proposal/blob/master/design/24543-non-cooperative-preemption.md
+https://github.com/golang/go/issues/24543
+
+
+* More
+
+Release notes, work in progress:
+
+https://tip.golang.org/doc/go1.14
