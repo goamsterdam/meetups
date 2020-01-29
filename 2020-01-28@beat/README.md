@@ -11,3 +11,6 @@ Talks
 -----
 
 * [What's new in Go 1.14](go114-slides/go114.slide), by Mechiel Lukkien
+* [Insight into the go packages and gomodctl](gomodctl.pdf), by Kanan Rahimov and Serdar Ormanli
+* [Test-driven development](the_habit_of_tdd.pdf), by Victor Alves
+
