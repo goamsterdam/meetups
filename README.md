@@ -13,8 +13,6 @@ Please maintain the list in a descending order based on the date the meetup has 
 
 Please send us a PR if we are missing some presentation or if some details are not correct.
 
-Please try to keep the list of names of organizers and event hosts sorted alphabetically.
-
 Hope to see you next time.
 
 Join Us on meetup.com

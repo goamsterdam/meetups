@@ -8,6 +8,11 @@ Location
 Boeing Avenue 271, 
 1119 PD Schiphol-Rijk
 
+Video recording
+---------------
+
+[Recording of the meetup](https://www.youtube.com/watch?v=4arBTsZhNOg)
+
 Talks
 -----
 

@@ -15,3 +15,8 @@ Talks
 * [Pointers vs Values ...debugged](Pointers%20vs%20Values%20...debugged.pdf), by Vangelis Katikaridis
 * [Test-driven development](the_habit_of_tdd.pdf), by Victor Alves
 
+Video recordings
+----------------
+
+* [Part 1](https://www.youtube.com/watch?v=Hj7M_oBfS8A)
+* [Part 2](https://www.youtube.com/watch?v=5RqFkGiet7s)
