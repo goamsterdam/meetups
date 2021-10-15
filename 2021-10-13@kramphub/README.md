@@ -18,5 +18,4 @@ Lightning Talks
 Talks
 -----
 
-- Interactive programming of melodies using https://melrōse.org/ by Ernest Micklei (Chief IT Architect at Kramp Hub, http://ernestmicklei.com/)
-
+- [Interactive programming of melodies](https://github.com/emicklei/meetups/blob/3a0253e29c6509ad5e10ddaf07f1cacf3064d8c4/2021-10-13%40kramphub/melr%C5%8Dse.pdf) using https://melrōse.org/ by Ernest Micklei (Chief IT Architect at Kramp Hub, http://ernestmicklei.com/) ([source](https://github.com/emicklei/talks/tree/master/2021/melrose))
