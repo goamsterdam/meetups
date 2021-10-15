@@ -12,7 +12,7 @@ Lightning Talks
 ---------------
 
 - [Common gotchas](common-gotchas.pdf), by Ilija Matoski
-- go-polyjson, by Roel Sengers
+- [go-polyjson](go-polyjson.slide), by Roel Sengers
 - [Go knowledge Quiz](https://docs.google.com/spreadsheets/d/1jjwySW9NJQz7i0YzZCoMe6ZJR99NuEy4BZhxbOdrNuA/edit?usp=sharing), by Erik Dubbelboer
 
 Talks
