@@ -1,0 +1,185 @@
+Polymorphic types in Go
+13 October 2021
+
+Why, how and some automation
+
+Roel Sengers
+https://github.com/polyfloyd/
+
+* Case 1
+
+Basic API response
+
+    type APIResponse struct {
+        Data []Thing
+        NextPage string
+        ErrorCode string
+        Message string
+    }
+
+    func getThings() {
+        response, err := http.Get("api/things/list")
+
+        var body APIResponse
+        err := json.NewDecoder(response.Body).Decode(&body)
+
+        if response.StatusCode >= 400 {
+            // Use body.ErrorCode and body.Message
+            return
+        }
+        // Use body.Data and body.NextPage
+    }
+
+* Case 1
+
+This is bad because:
+
+- The condition for which fields should be used is not present in the struct itself.
+- Accidental use is possible without the compiler or runtime complaining
+
+
+* Case 2
+
+Multiple complex objects
+
+    type Content {
+        Kind string `json:"kind"`
+
+        // Kind == "Text"
+        Text      string     `json:"text"`
+        Font      string     `json:"font"`
+        Size      float32    `json:"size"`
+        AlignX    TextAlignX `json:"align_x"`
+        AlignY    TextAlignY `json:"align_y"`
+        FillColor [3]float32 `json:"fill_color"`
+
+        // Kind == "Image"
+        Path       string  `json:"path"`
+        Fullscreen bool    `json:"fullscreen"`
+        Effect     *Shader `json:"effect"`
+
+        // Kind == "Timeline"
+        Items []TimelineItem `json:"items"`
+    }
+
+* Case 2
+
+This is bad because:
+
+- Variants with fields with the same name but with different types can not be represented
+- New variants are silently dropped
+
+
+* Runtime polymorphism
+
+
+* Splitting up the struct
+
+Add (empty) interface and separate structs for each variant.
+
+    type Content interface{}
+
+    type Text {
+        Text      string     `json:"text"`
+        Font      string     `json:"font"`
+        Size      float32    `json:"size"`
+        AlignX    TextAlignX `json:"align_x"`
+        AlignY    TextAlignY `json:"align_y"`
+        FillColor [3]float32 `json:"fill_color"`
+    }
+
+    type Image struct {
+        Path       string  `json:"path"`
+        Fullscreen bool    `json:"fullscreen"`
+        Effect     *Shader `json:"effect"`
+    }
+
+    type Timeline struct {
+        Items []TimelineItem `json:"items"`
+    }
+
+
+* Checking the variant
+
+    func renderContent(c Content) error {
+        switch t := c.(type) {
+        case Text:
+            renderText(t.Text, t.Font, ...)
+
+        case Image:
+            renderImage(t.Path, t.Fullscreen, ...)
+
+        case Timeline:
+            for _, item := range t.Items {
+                renderContent(item.content)
+            }
+
+        default:
+            return fmt.Errorf("unknown content type %T", c)
+        }
+        return nil
+    }
+
+
+* Checking the variant
+
+    func handleThings(body APIResponse) error {
+        if len(body.Data) > 0 {
+            // ^ Interface does not have field Data!
+        }
+    }
+
+    func renderContent(c Content) error {
+        renderText(t.Text, t.Font, ...)
+        // ^ Interface does not have fields Text, Font, etc!
+    }
+
+Bonus:
+
+- Add an empty method to your interface and variants so the compiler can spot erroneous assignments!
+
+
+* Interaction with JSON
+
+Marshaling / encode:
+
+- Implement json.Marshaler and have it insert a `Kind` field
+- Then `json.Marshal` whatever you have :)
+
+Unmarshaling / decode:
+
+- 😨
+
+
+* Unmarshaling
+
+For each object...
+
+- Capture polymorphic object in a `json.RawMessage`
+- 1st `json.Marshal` to get `Kind`
+- Switch on `Kind`
+- 2nd `json.Unmarshal` into the final struct (type alias because of possible recursion!)
+- Abort with an error if `Kind` is not known
+
+Entrypoints:
+
+- Special unmarshal function for each polymorphic type
+- Implement `json.Unmarshaler` on struct that contains polymorphic field(s)
+
+
+* go-polyjson code generator
+
+Unmarshaling code is boring code to write, here's a tool that does it for you:
+
+[[https://github.com/polyfloyd/go-polyjson/][https://github.com/polyfloyd/go-polyjson/]]
+
+- Generates unmarshaling functions
+- Generates json.Unmarshaler implementations
+- Limited support for slice and map fields
+- Works on recursive data structures
+- Automatically finds variants
+- Interoperable with Rust Serde-JSON
+
+Beta! Feedback is welcome
+
+
