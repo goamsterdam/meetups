@@ -18,8 +18,8 @@ Talks
 
 Lightning Talks
 --------------
-* [Proto3 transport formats and protocols](), by Anatoly Rugalev (Stream)
-* [Portable Go apps with a web interface](portable-go-apps.pdf), byDavid Stotijn (freelancer)
+* [Proto3 transport formats and protocols](proto3-transport-formats-and-protocols.pdf), by Anatoly Rugalev (Stream)
+* [Portable Go apps with a web interface](portable-go-apps.pdf), by David Stotijn (freelancer)
 
 Other slides
 ------------
