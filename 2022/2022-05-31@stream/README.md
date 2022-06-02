@@ -13,7 +13,7 @@ Kleine-Gartmanplantsoen 21-7
 Talks
 -----
 
-* [Loki: Distributed database for Logs in Go](), by Kaviraj Kanagaraj (Grafana Labs)
+* [Loki: Distributed database for Logs in Go](loki-distributed-database-for-logs.pdf), by Kaviraj Kanagaraj (Grafana Labs)
 * [GRPC: The load balancing gotchas and the connection pool solution](grpc.pdf), by Ruba Zeibak (Hatch)
 
 Lightning Talks
