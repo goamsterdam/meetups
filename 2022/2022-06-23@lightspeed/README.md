@@ -13,7 +13,7 @@ Talks
 -----
 
 - [WebAssembly or: how I learned to stop worrying and love the frontend](https://github.com/orsinium-labs/golang-wasm) by Gram
-- [Building an open-source database library in Go](kivik.pdf) by [https://github.com/flimzy]
+- [Building an open-source database library in Go](kivik.pdf) by [Jonathan Hall](https://github.com/flimzy)
 
 Lightning Talks
 --------------
