@@ -34,6 +34,11 @@ https://invite.slack.golangbridge.org
 
 ![Join Us](qr.png?raw=true "QR Code")
 
+Join Us on YouTube
+------------------
+
+[Join Us](https://www.youtube.com/channel/UCfoAAXOClHc-ue_8j_R6icA)
+
 ORGANIZERS
 ----------
 
