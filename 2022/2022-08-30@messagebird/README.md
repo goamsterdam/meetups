@@ -10,8 +10,9 @@ Trompenburgstraat 2c
 
 Talks
 -----
+- [chconn - making a high performance generic library for Clickhouse](https://go-talks.appspot.com/github.com/vahid-sohrabloo/slides/2022/chconn_amsterdam/chconn.slide) by [Erik Dubbelboer](https://github.com/erikdubbelboer)
 
 
 Lightningtalks
 --------------
-
+- [net/http: why do I need to read the body?](http-read-the-body.pdf) by [Vahid Sohabloo](https://github.com/vahid-sohrabloo)
