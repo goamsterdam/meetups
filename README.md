@@ -1,8 +1,9 @@
 Golang Amsterdam
 ----------------
 
-Please maintain the list in a descending order based on the date the meetup has been held, please keep the last 10 meetups here.
+Please maintain the list in a descending order based on the date the meetup has been held, please keep the last 15 meetups here.
 
+* [2022-09-28 at Cloud Pirates](2022/2022-09-28%40cloud-pirates/README.md)
 * [2022-08-30 at MessageBird](2022/2022-08-30@messagebird/README.md)
 * [2022-06-23 at Lightspeed](2022/2022-06-23@lightspeed/README.md)
 * [2022-04-12 at Hatch](2022/2022-04-12@hatch/README.md)
