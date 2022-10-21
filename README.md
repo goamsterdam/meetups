@@ -1,7 +1,38 @@
-Golang Amsterdam
-----------------
+# Golang Amsterdam
 
-Please maintain the list in a descending order based on the date the meetup has been held, please keep the last 15 meetups here.
+The Golang Amsterdam meetup organizes in-person meetups about Go. We try to get
+together every 5-7 weeks. We hope to make events interesting both to beginners
+and advanced Go users. The meetup is organized for and by the community: Please
+help out by giving a talk, getting your company to host a meetup, and simply
+coming to the meetup and being friendly to your fellow gophers!
+
+## Join us
+
+- On meetup.com, for future events: https://meetup.com/golang-amsterdam/
+- On slack, register via https://invite.slack.golangbridge.org and join #amsterdam or use the [QR code](qr.png?raw=true).
+- On youtube for video recordings, https://www.youtube.com/channel/UCfoAAXOClHc-ue_8j_R6icA
+
+## Participating
+
+If you are (interested in) giving a talk, see [SPEAKING.md](SPEAKING.md).
+
+A great way to get started with speaking at the meetup is by presenting the
+recurring item "What's new in Go" during the next meetup. See
+[whats-new.md](whats-new.md).
+
+If you would like to host a future event, see [HOSTING.md](HOSTING.md) for details.
+
+We would love to get feedback about the meetup. What do you like? What can we
+improve? Your feedback is very much appreciated! Send it by email, slack,
+in-person.
+
+## Contact
+
+Questions? Want to speak at or host a future event? Contact the [ORGANIZERS](ORGANIZERS).
+
+## Past events
+
+Slides for past events:
 
 * [2022-09-28 at Cloud Pirates](2022/2022-09-28%40cloud-pirates/README.md)
 * [2022-08-30 at MessageBird](2022/2022-08-30@messagebird/README.md)
@@ -17,30 +48,3 @@ Please maintain the list in a descending order based on the date the meetup has 
 * [2019-02-21 at Nulab](2019/2019-02-21@nulab/README.md)
 
 Please send us a PR if we are missing some presentation or if some details are not correct.
-
-Hope to see you next time.
-
-Join Us on meetup.com
----------------------
-
-https://meetup.com/golang-amsterdam/
-
-Join Us on Slack
------------------
-
-```
-https://invite.slack.golangbridge.org
-/join #amsterdam
-```
-
-![Join Us](qr.png?raw=true "QR Code")
-
-Join Us on YouTube
-------------------
-
-[Join Us](https://www.youtube.com/channel/UCfoAAXOClHc-ue_8j_R6icA)
-
-ORGANIZERS
-----------
-
-You can find all the awesome details about the organizers [here](ORGANIZERS).

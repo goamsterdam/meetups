@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<title>timer</title>
+		<meta charset="utf-8" />
+		<style>
+* { margin: 0; padding: 0; }
+body { font-family: "ubuntu", "lato", sans-serif; font-size: 15px; overflow-y: hidden}
+#topbar { font-size: 2rem; }
+#topbar * { font-size: 2rem; padding: 0 .4rem; }
+#timebox { font-size: 30rem; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; color: black; text-shadow: 5px 5px 5px white, -5px 5px 5px white, -5px -5px 5px white, 5px -5px 5px white; }
+#time { cursor: pointer; }
+		</style>
+	</head>
+	<body>
+		<div id="timebox" tabindex="0" style="line-height: 1">
+			<div id="time" onclick="return toggle()" title="start/pause"></div>
+		</div>
+		<div id="topbar" style="position: fixed; top: .5rem; left: .5rem">
+			mins:
+			<button onclick="return init(5)">5</button>
+			<button onclick="return init(8)">8</button>
+			<button onclick="return init(10)">10</button>
+			<button onclick="return init(15)">15</button>
+			<button onclick="return init(20)">20</button>
+			<button onclick="return init(30)">30</button>
+			<button onclick="return init(45)">45</button>
+			<form style="display: inline" id="resetform">
+				<input id="minutes" type="number" placeholder="minutes" value="8" style="width: 3em" />
+				<button>reset</button>
+			</form>
+			<button id="toggleBtn" onclick="return toggle()" title="start/pause, hotkey: space">start</button>
+			<button onclick="return fullscreen()" title="hotkey: f">fullscreen</button>
+		</div>
+		<div id="colorwheel" style="position: fixed; top: 0; right: 0; width: 10vh; height: 10vh; background: conic-gradient(hsl(0, 100%, 50%), hsl(120, 100%, 50%)); clip-path: circle(closest-side)"></div>
+		<script>
+// in seconds
+let total = 8*60
+let used = 0
+let last
+let timerID
+let wakeLock
+function init(mins) {
+	total = mins*60
+	minutes.value = mins
+	if (timerID) {
+		reset()
+	}
+	time.innerText = 'ready? ' + Math.floor(total/60) + 'mins'
+	timebox.style.fontSize = '25vh'
+	timebox.style.backgroundColor = '#00c3ffab' 
+	timebox.focus()
+}
+function pause() {
+	clearInterval(timerID)
+	timerID = undefined
+	toggleBtn.innerText = 'start'
+	timebox.style.backgroundColor = '#00c3ffab' 
+	timebox.focus()
+	topbar.style.display = 'block'
+	colorwheel.style.display = 'block'
+}
+function reset() {
+	total = minutes.value * 60
+	used = 0
+	pause()
+	timebox.style.fontSize = '25vh'
+	time.innerText = 'ready? ' + Math.floor(total/60) + 'mins'
+	timebox.focus()
+}
+function tick() {
+	used += 1
+	time.innerText = '' + Math.floor(used/60)
+	timebox.style.fontSize = '95vh'
+	let hue = Math.round(120 - 120*used/total)
+	if (hue < 0) {
+		hue = 0
+	}
+	let hsl = 'hsl(' + ['' + hue, '100%', '50%'].join(', ') + ')'
+	timebox.style.backgroundColor = hsl
+}
+async function toggle() {
+	if (timerID) {
+		pause()
+		timebox.style.fontSize = '65vh'
+		time.innerText = '' + Math.floor(used/60) +'/' + Math.floor(total/60)
+		if (wakeLock) {
+			wakeLock.release()
+			wakeLock = undefined
+		}
+		return
+	}
+
+	toggleBtn.innerText = 'pause'
+	tick()
+	timerID = setInterval(tick, 1000)
+	topbar.style.display = 'none'
+	colorwheel.style.display = 'none'
+	if (navigator.wakeLock) {
+		wakeLock = await navigator.wakeLock.request('screen');
+	}
+}
+function fullscreen() {
+	if (document.fullscreen) {
+		document.exitFullscreen()
+	} else {
+		timebox.requestFullscreen()
+	}
+	timebox.focus()
+}
+window.addEventListener('load', () => {
+	timebox.addEventListener('keyup', (e) => {
+		if (e.key === 'f') {
+			fullscreen();
+		} else if (e.key === ' ') {
+			toggle()
+		}
+	})
+	resetform.addEventListener('submit', (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		reset()
+	})
+	init(8)
+})
+		</script>
+	</body>
+</html>
