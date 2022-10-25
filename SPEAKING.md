@@ -88,4 +88,4 @@ feel free to contact the organizers.
 
 # Still want to be a speaker? 
 
-Please fill up the form [I want to be a host](https://docs.google.com/forms/d/e/1FAIpQLSfQL7sqRjZz-tutbyfP27WHAFXll4TAHKfhQ4zSZKI8wFS7zA/viewform?usp=sf_link) and we will reach out to you as soon as possible.
+Please fill up the form [I want to be a host](https://docs.google.com/forms/d/e/1FAIpQLSczX4KFCQ8SU4Vg8Z32AuTXQW4eLSNprma6Sfe5o6hsiqPvaA/viewform?usp=sf_link) and we will reach out to you as soon as possible.
