@@ -85,3 +85,7 @@ fellow gophers interested in what you have to say.
 There are tons of resources available online with advice on speaking in
 public. Many have gone before you! If you would like help/advice/practice,
 feel free to contact the organizers.
+
+# Still want to be a speaker? 
+
+Please fill up the form [I want to be a host](https://docs.google.com/forms/d/e/1FAIpQLSfQL7sqRjZz-tutbyfP27WHAFXll4TAHKfhQ4zSZKI8wFS7zA/viewform?usp=sf_link) and we will reach out to you as soon as possible.

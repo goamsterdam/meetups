@@ -9,22 +9,24 @@ coming to the meetup and being friendly to your fellow gophers!
 ## Join us
 
 - On meetup.com, for future events: https://meetup.com/golang-amsterdam/
-- On slack, register via https://invite.slack.golangbridge.org and join #amsterdam or use the [QR code](qr.png?raw=true).
+- On slack, register via https://invite.slack.golangbridge.org and join #amsterdam or use the [QR code](qr/join-slack.png?raw=true).
 - On youtube for video recordings, https://www.youtube.com/channel/UCfoAAXOClHc-ue_8j_R6icA
 
 ## Participating
 
-If you are (interested in) giving a talk, see [SPEAKING.md](SPEAKING.md).
+If you are (interested in) giving a talk, see [SPEAKING.md](SPEAKING.md). Or just fill up the form [I want to be a speaker](https://docs.google.com/forms/d/e/1FAIpQLSczX4KFCQ8SU4Vg8Z32AuTXQW4eLSNprma6Sfe5o6hsiqPvaA/viewform?usp=sf_link) if you want to speak at an upcoming meetup, and we will get back to you.
 
 A great way to get started with speaking at the meetup is by presenting the
 recurring item "What's new in Go" during the next meetup. See
 [whats-new.md](whats-new.md).
 
-If you would like to host a future event, see [HOSTING.md](HOSTING.md) for details.
+If you would like to host a future event, see [HOSTING.md](HOSTING.md) for details, or quickly apply on [I want to be a host](https://docs.google.com/forms/d/e/1FAIpQLSfQL7sqRjZz-tutbyfP27WHAFXll4TAHKfhQ4zSZKI8wFS7zA/viewform?usp=sf_link) and we will reach out to you.
 
 We would love to get feedback about the meetup. What do you like? What can we
-improve? Your feedback is very much appreciated! Send it by email, slack,
+improve? Your feedback is very much appreciated! Send it by our online form, email, slack,
 in-person.
+
+[Send Feedback](https://docs.google.com/forms/d/e/1FAIpQLSf8y_eGMFl7jiFR6z03Cu3rDneandcr4iLhoCOB0nh_QZonVQ/viewform?usp=sf_link)
 
 ## Contact
 

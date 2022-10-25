@@ -79,3 +79,7 @@ Companies are often happy to offer drinks and snacks before/during
 the meetup. This is often soda/beer and pizza, but can be anything that
 keeps the attendees from going too hungry/thirsty. Don't get too much,
 it's great if the snacks are finished before the end of the event.
+
+# Still want to be a host? 
+
+Please fill up the form [I want to be a host](https://docs.google.com/forms/d/e/1FAIpQLSfQL7sqRjZz-tutbyfP27WHAFXll4TAHKfhQ4zSZKI8wFS7zA/viewform?usp=sf_link) and we will reach out to you as soon as possible.
