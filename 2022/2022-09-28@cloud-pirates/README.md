@@ -1,6 +1,6 @@
 When
 ----
-Wedensday, September 28, 2022 @ 18:00 to 21:00
+Wednesday, September 28, 2022 @ 18:00 to 21:00
 
 Location
 --------

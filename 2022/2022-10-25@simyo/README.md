@@ -20,7 +20,7 @@ Lightning talks
 
 Other slides
 ------------
-* [Meetup intro slides](intro-slides.pdf), by [Mechiel Lukkien](https://github.com/)
+* [Meetup intro slides](intro-slides.pdf), by [Mechiel Lukkien](https://github.com/mjl-)
 
 Video
 -----
