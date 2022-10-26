@@ -1,0 +1,281 @@
+# Bstore
+and the making of a library (a database)
+25 Oct 2022
+
+Mechiel Lukkien
+https://github.com/mjl-/bstore
+
+## Contents
+
+- Management summary
+- Features
+- Why?
+- Documentation and examples
+- Testing
+- Compiler bug?
+- Future
+
+## Management summary
+
+Initialize DB
+
+	import "github.com/mjl-/bstore"
+
+	type User struct {
+		ID int
+		Name string `bstore:"nonzero,unique"`
+	}
+
+	db, ... := bstore.Open("accounts.db", nil, User{})
+
+
+Insert and retrieve data
+
+	u := User{Name: "mjl"}
+	... = db.Insert(&u) // Assigns u.ID.
+
+	x := User{ID: u.ID}
+	... = db.Get(&x) // Get by ID.
+
+Query data
+
+	user, ... := bstore.QueryDB[User](db).FilterEqual("Name", "mjl").Get()
+
+## Features
+
+- Data consistency (:
+- Non-zero constraints
+- Unique constraints (also multi-field)
+- Foreign key referential integrity
+- Default values
+- Store basic types, and maps, slices, structs, BinaryMarshal
+- Indices for performance (also multi-field)
+- Schema updates based on Go types
+- API for querying
+- Pure Go library, no cgo
+- BoltDB for storage: single-file mmap key/values stored in buckets, B+trees
+- NOT: joins
+
+## Why? (1/2)
+
+I want cross-compilation:
+
+	go build
+	GOOS=linux go build
+	GOOS=openbsd go build
+	GOARCH=386 go build
+
+## Why? (2/2)
+
+Sqlite is awesome, but not easy to cross-compile:
+
+	$ CGO_ENABLED=1 GOOS=386 go build
+	# runtime/cgo
+	In file included from _cgo_export.c:3:
+	/usr/include/stdlib.h:25:10: fatal error: bits/libc-header-start.h: No such file or directory
+	   25 | #include <bits/libc-header-start.h>
+	      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+	compilation terminated.
+
+
+## Documentation and examples
+
+.link https://github.com/mjl-/bstore
+
+## Testing (1/2)
+
+I am not trusting my storage library without lots of tests!
+
+Files ending in _test.go.
+
+	import "testing"
+
+	func TestXXX(t *testing.T) {
+		// Regular Go code.
+
+		t.Fatalf("test failed!")
+	}
+
+## Testing (2/2)
+
+Run tests and make coverage report:
+
+	go test -shuffle=on -coverprofile cover.out
+	go tool cover -html=cover.out -o cover.html
+
+Example:
+
+.link cover.html
+
+## Compiler bug? (1/2)
+
+	panic: offset too large
+
+	goroutine 980 [running]:
+	cmd/compile/internal/liveness.(*argLiveness).emit(0xc006537800)
+		/usr/local/go/src/cmd/compile/internal/liveness/arg.go:310 +0x3aa
+	cmd/compile/internal/liveness.ArgLiveness(0xc002a97180, 0xc0061c7dc0, 0x10?)
+		/usr/local/go/src/cmd/compile/internal/liveness/arg.go:218 +0xab5
+	cmd/compile/internal/ssagen.genssa(0xc0061c7dc0, 0xc002523880)
+		/usr/local/go/src/cmd/compile/internal/ssagen/ssa.go:6909 +0x117
+	cmd/compile/internal/ssagen.Compile(0xc002a97180, 0xc000054f90?)
+		/usr/local/go/src/cmd/compile/internal/ssagen/pgen.go:197 +0x26f
+	cmd/compile/internal/gc.compileFunctions.func4.1(0x0?)
+		/usr/local/go/src/cmd/compile/internal/gc/compile.go:153 +0x3a
+	cmd/compile/internal/gc.compileFunctions.func3.1()
+		/usr/local/go/src/cmd/compile/internal/gc/compile.go:140 +0x4d
+	created by cmd/compile/internal/gc.compileFunctions.func3
+		/usr/local/go/src/cmd/compile/internal/gc/compile.go:138 +0x78
+	FAIL    github.com/mjl-/bstore [build failed]
+
+
+## Compiler bug? (2/2)
+
+Triggered by the underscore (unnamed parameter) in:
+
+	// Count returns the number of selected records.
+	func (q *Query[T]) Count() (n int, rerr error) {
+		defer q.finish(&rerr)
+		q.checkNotNext()
+
+		err := q.foreachKey(false, false, func(kb []byte, _ T) error {
+			n++
+			return nil
+		})
+		return n, err
+	}
+
+Rare race condition in compiler. Issue #55357, fix being backported.
+
+## Future
+
+- Feedback? DDL and query language vs Go types/methods. ORM smell.
+- Get stable, more tests.
+- Convert more code to use bstore.
+
+Later:
+
+- Implement more automatic schema updates/conversions.
+- Optimize, performance?
+- Query API for selecting subsets of fields
+- Joins?
+- Replace BoltDB?
+
+## Thanks
+
+## Backup
+
+## Comparison with SQL
+
+- SQL external database (postgres)
+- SQL builtin database (sqlite)
+- Go builtin database (bstore)
+
+## SQL (1/2)
+
+First create some tables:
+
+	create table user (
+		id       integer primary key autoincrement,
+		name     text not null unique,
+		group_id integer not null references group(id)
+	);
+	create table group (
+		id       integer primary key autoincrement,
+		name     text not null unique
+	);
+
+## SQL (2/2)
+
+	import (
+		"database/sql"
+		_ "github.com/mattn/go-sqlite3"
+	)
+
+	type User struct {
+		ID      int
+		Name    string
+		GroupID int
+	}
+	type Group struct {
+		ID   int
+		Name string
+	}
+
+	db, ... := sql.Open("sqlite3", "app.db")
+	const q = `select * from user order by name asc`
+	rows, ... := db.Query(q)
+	for rows.Next() {
+		var u User
+		... = rows.Scan(&u.ID, &u.Name, &u.GroupID)
+	}
+	... = rows.Err()
+	
+## Bstore (1/1)
+
+	import "github.com/mjl-/bstore"
+
+	type User struct {
+		ID      int
+		Name    string `bstore:"nonzero,unique"`
+		GroupID int    `bstore:"nonzero,ref Group"`
+	}
+	type Group struct {
+		ID   int
+		Name string `bstore:"nonzero,unique"`
+	}
+
+	db, ... := bstore.Open("app.db", nil, User{}, Group{})
+	users, ... := bstore.QueryDB[User](db).SortAsc("Name").List()
+
+## Generics (1/4)
+
+Type checking at compile time for queries:
+
+	type Query[T any] ...
+
+Created with function call:
+
+	q := bstore.QueryDB[User](db)
+	q.FilterEqual("Name", "mjl")
+	user, ... := q.Get()
+
+Variable user is of type User:
+
+	func (q *Query[T]) Get() (T, error) {
+		...
+	}
+
+## Generics (2/4)
+
+Cannot introduce type parameters on methods.
+
+Not possible in Go:
+
+	q := db.Query[User]()
+	q := tx.Query[User]()
+
+So we have:
+
+	q := bstore.QueryDB[User](db)
+	q := bstore.QueryTx[User](tx)
+
+## Generics (3/4)
+
+Cannot enforce that T is a struct type.
+
+This will compile, but fail at runtime:
+
+	... := db.Query[string]().List()
+
+## Generics (4/4)
+
+I hoped to get a primary key (PK) type parameter too.
+
+Hypothetical, not valid Go:
+
+	q := bstore.QueryDB[User[int]](db)
+
+	func (q *Query[T[PK]) ID() (PK, error)
+
+
