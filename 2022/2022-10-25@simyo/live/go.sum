@@ -1,0 +1,7 @@
+github.com/etcd-io/bbolt v1.3.3 h1:gSJmxrs37LgTqR/oyJBWok6k6SvXEUerFTbltIhXkBM=
+github.com/etcd-io/bbolt v1.3.3/go.mod h1:ZF2nL25h33cCyBtcyWeZ2/I3HQOfTP+0PIEvHjkjCrw=
+github.com/mjl-/bstore v0.0.0-20221025083312-da25782a3dc1 h1:sr9gJMb/SayvrWbMQqiepjL3gqA0qw+Zr9Z0PeLCWCI=
+github.com/mjl-/bstore v0.0.0-20221025083312-da25782a3dc1/go.mod h1:csLSdya+9sj6QsBhnRsHkdhxjMJemwBpOSgSYKhgN3Y=
+go.etcd.io/bbolt v1.3.6 h1:/ecaJf0sk1l4l6V4awd65v2C3ILy7MSj+s/x1ADCIMU=
+golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec h1:BkDtF2Ih9xZ7le9ndzTA7KJow28VbQW3odyk/8drmuI=
+golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

@@ -11,7 +11,7 @@ Teleportboulevard 121
 Talks
 -----
 - [Bstore and the making of a library](bstore.slide), by [Mechiel Lukkien](https://github.com/mjl-)
-- Live coding for beginners, by [Erik Dubbelboer](https://github.com/erikdubbelboer)
+- [Live coding for beginners](live/), by [Erik Dubbelboer](https://github.com/erikdubbelboer)
 
 
 Lightning talks

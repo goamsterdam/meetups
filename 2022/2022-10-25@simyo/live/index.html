@@ -1,0 +1,40 @@
+
+<doctype html>
+<body>
+<div id="chat"></div>
+<form action="">
+<input type="text" id="message" autocomplete="off" />
+<input type="email" id="email" autocomplete="off" />
+<input type="submit" value="Send" />
+</form>
+
+<button id="shutdown">shutdown in 5 seconds</button>
+
+<script>
+const chat = document.getElementById('chat');
+const form = document.querySelector('form');
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = document.getElementById('message').value;
+    const email = document.getElementById('email').value;
+    fetch('/sent', {
+        method: 'POST',
+        body: JSON.stringify({
+            message,
+            email,
+        }),
+    });
+});
+
+setInterval(() => {
+    fetch('/list').then(r => r.json()).then(messages => {
+        chat.innerHTML = messages.map(m => {
+            return '<img src="https://www.gravatar.com/avatar/' + m.email_md5 + '?s=50" /> ' + m.message;
+        }).join('<br>');
+    });
+}, 1000);
+
+document.getElementById('shutdown').addEventListener('click', () => {
+    fetch('/shutdown', { method: 'POST' });
+});
+</script>
