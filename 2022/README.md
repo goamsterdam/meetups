@@ -9,5 +9,6 @@ Please maintain the list in a descending order based on the date the meetup has 
 * [2022-08-30 at MessageBird](2022-08-30%40messagebird/README.md)
 * [2022-09-28 at Cloud Pirates](2022-09-28%40cloud-pirates/README.md)
 * [2022-10-25 at Simyo](2022-10-25%40simyo/README.md)
+* [2022-11-22 at Lightspeed](2022-11-22%40lightspeed/README.md)
 
 Please send us a PR if we are missing some presentation or if some details are not correct.

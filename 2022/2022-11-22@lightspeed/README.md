@@ -1,0 +1,17 @@
+When
+----
+Tuesday, November 22, 2022 @ 17:30 to 21:00
+
+Location
+--------
+[Lightspeed](https://www.lightspeedhq.com)
+
+Haarlemmerweg 331, 
+1051 LH Amsterdam, Netherlands
+
+Talks
+-----
+
+- Introduction to TiDB - a distributed SQL database (where the SQL node is written in Go), by Mattias Jonsson
+- Building a RESTful Payment Routing Service in Go, by Vincent Partington and Justin Moor
+- [What's new in Go](whats-new-in-go.pdf), by [Mechiel Lukkien](https://github.com/mjl-)
