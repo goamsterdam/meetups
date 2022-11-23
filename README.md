@@ -36,6 +36,7 @@ Questions? Want to speak at or host a future event? Contact the [ORGANIZERS](ORG
 
 Slides for past events:
 
+* [2022-11-22 at Lightspeed](2022/2022-11-22%40lightspeed/README.md)
 * [2022-10-25 at Simyo](2022/2022-10-25%40simyo/README.md)
 * [2022-09-28 at Cloud Pirates](2022/2022-09-28%40cloud-pirates/README.md)
 * [2022-08-30 at MessageBird](2022/2022-08-30@messagebird/README.md)
