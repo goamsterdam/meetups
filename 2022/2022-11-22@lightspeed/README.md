@@ -12,6 +12,6 @@ Haarlemmerweg 331,
 Talks
 -----
 
-- Introduction to TiDB - a distributed SQL database (where the SQL node is written in Go), by Mattias Jonsson
+- [Introduction to TiDB - a distributed SQL database (where the SQL node is written in Go)](Introduction to TiDB at Golang Amsterdam.pdf), by [Mattias Jonsson](https://github.com/mjonss)
 - Building a RESTful Payment Routing Service in Go, by Vincent Partington and Justin Moor
 - [What's new in Go](whats-new-in-go.pdf), by [Mechiel Lukkien](https://github.com/mjl-)
