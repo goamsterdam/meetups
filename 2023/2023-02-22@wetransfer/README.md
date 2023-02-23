@@ -15,4 +15,4 @@ Talks
 
 - Building a Hashicorp Vault provider, by [Aleks Yanchuk](https://github.com/aliakseiyanchuk)
 - [Observability testing](observability-testing.pdf), by [Anatoly Rugalev](https://github.com/AnatolyRugalev)
-- What's new in Go, by [Henrique Vicente de Oliveira Pinto](https://github.com/henvic/)
+- [What's new in Go](whats-new-in-go.pdf), by [Henrique Vicente de Oliveira Pinto](https://github.com/henvic/)
