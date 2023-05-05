@@ -15,6 +15,7 @@ Talks
 
 Lightning talks
 --------------
+- [Go at Creative Fabrica](go-at-cf.pdf), by An Tran
 - [What's new in Go](whats-new-in-go-2023-may.pdf), by [Erik Dubbelboer](https://github.com/erikdubbelboer)
 
 Other slides
