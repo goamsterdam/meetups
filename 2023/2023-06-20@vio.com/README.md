@@ -16,7 +16,7 @@ Talks
 Lightning talks
 --------------
 - [What's new in Go](What%20is%20new%20in%20Go%20-%20June%202023.pdf), by [Nils Dijk](https://github.com/thanodnl)
-- slog, by Arno Overgaauw
+- [slog](20230620%20AMS%20Meetup%20slog.pptx), by Arno Overgaauw
 
 Other slides
 ------------
