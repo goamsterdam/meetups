@@ -20,7 +20,7 @@ Lightning talks
 
 Other slides
 ------------
-* [Meetup intro slides](GoAms - Intro Slides - 2023-06-20 - Vio.com.pdf), by Erik Dubbelboer
+* [Meetup intro slides](GoAms%20-%20Intro%20Slides%20-%202023-06-20%20-%20Vio.com.pdf), by Erik Dubbelboer
 
 Video
 -----
