@@ -10,12 +10,12 @@ Amsterdam
 
 Talks
 -----
-- Mock library without code generation, by Dmitry Ovechkin
-- BoltDB: an embedded key-value database, by Huseyin Ekemen
+- [Mock library without code generation](https://slides.com/dmitryovechkin/palette), by Dmitry Ovechkin
+- [BoltDB: an embedded key-value database](BoltDB%20an%20embeded%20database%20for%20go.pdf), by Huseyin Ekemen
 
 Lightning talks
 --------------
-- What's new in Go, by [Nils Dijk](https://github.com/thanodnl)
+- [What's new in Go](What%20is%20new%20in%20Go%20-%20June%202023.pdf), by [Nils Dijk](https://github.com/thanodnl)
 - slog, by Arno Overgaauw
 
 Other slides
