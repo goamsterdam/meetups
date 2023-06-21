@@ -5,7 +5,7 @@ Tuesday, June 20, 2023 @ 18:00 to 21:00
 Location
 --------
 [Vio.com](https://www.vio.com/)
-Nieuwe Looiersdwarsstraat 17
+Nieuwe Looiersdwarsstraat 17  
 Amsterdam
 
 Talks
@@ -21,6 +21,10 @@ Lightning talks
 Other slides
 ------------
 * [Meetup intro slides](GoAms%20-%20Intro%20Slides%20-%202023-06-20%20-%20Vio.com.pdf), by Erik Dubbelboer
+
+Meetup
+------
+https://www.meetup.com/golang-amsterdam/events/293893198/
 
 Video
 -----
