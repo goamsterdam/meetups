@@ -36,6 +36,7 @@ Questions? Want to speak at or host a future event? Contact the [ORGANIZERS](ORG
 
 Slides for past events:
 
+* [2023-07-19 at Lightspeed](2023/2023-07-19%40lightspeed/README.md)
 * [2023-06-20 at Vio.com](2023/2023-06-20%40vio.com/README.md)
 * [2023-05-02 at Creative Fabrica](2023/2023-05-02%40creative-fabrica/README.md)
 * [2023-02-22 at WeTransfer](2023/2023-02-22%40wetransfer/README.md)
