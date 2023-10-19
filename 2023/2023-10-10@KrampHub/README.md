@@ -22,3 +22,8 @@ Lightning Talks
 Other slides
 ------------
 * [Meetup intro slides](intro.pdf), by Jonathan Hall
+
+Video
+-----
+
+[![Go meetup](https://img.youtube.com/vi/jxBffQx5nm8/0.jpg)](https://www.youtube.com/watch?v=jxBffQx5nm8 "Go meetup")
