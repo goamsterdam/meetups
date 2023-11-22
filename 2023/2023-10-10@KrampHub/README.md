@@ -1,4 +1,4 @@
-Wedensday, October 10, 2023 @ 17:30 to 21:00
+Wednesday, October 10, 2023 @ 17:30 to 21:00
 
 Location
 --------

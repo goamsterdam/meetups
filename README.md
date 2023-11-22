@@ -36,6 +36,8 @@ Questions? Want to speak at or host a future event? Contact the [ORGANIZERS](ORG
 
 Slides for past events:
 
+* [2023-11-21 at Simyo](2023/2023-11-21@Simyo/README.md)
+* [2023-10-10 at KrampHub](2023/2023-10-10@KrampHub/README.md)
 * [2023-07-19 at Lightspeed](2023/2023-07-19%40lightspeed/README.md)
 * [2023-06-20 at Vio.com](2023/2023-06-20%40vio.com/README.md)
 * [2023-05-02 at Creative Fabrica](2023/2023-05-02%40creative-fabrica/README.md)
