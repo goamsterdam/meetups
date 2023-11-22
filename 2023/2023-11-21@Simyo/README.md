@@ -10,7 +10,7 @@ Teleportboulevard 121,
 Talks
 -----
 
-- [Cognitive complexity analysis of Go code]() by Marcello Holland
+- [Cognitive complexity analysis of Go code](GoCognitive.pdf) by Marcello Holland
 - Live code review, by Jonathan Hall
 
 Lightning Talks
