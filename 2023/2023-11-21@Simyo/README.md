@@ -7,6 +7,10 @@ Location
 Teleportboulevard 121,
 1043 EJ Amsterdam, Netherlands
 
+Simyo
+------------
+* [About Simyo](Simyo.pdf), by Soeradj
+
 Talks
 -----
 
@@ -16,6 +20,7 @@ Talks
 Lightning Talks
 --------------
 - [What's new in Go](./new-in-go.org) by [Terin Stock](https://github.com/terinjokes)
+
 
 Video
 -----
