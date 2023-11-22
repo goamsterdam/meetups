@@ -15,7 +15,7 @@ Talks
 
 Lightning Talks
 --------------
-- [What's new in Go]() by Terin Stock
+- [What's new in Go](./new-in-go.org) by [Terin Stock](https://github.com/terinjokes)
 
 Video
 -----

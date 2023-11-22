@@ -1,0 +1,103 @@
+#+title: What's New in Go (November 2023)
+#+author: Terin Stock
+#+email: terin@terinstock.com
+#+date: [2023-11-21 Tue]
+
+#+BEGIN_COMMENT
+This presentation was given using [[https://github.com/takaxp/org-tree-slide][org-tree-slide]].
+#+END_COMMENT
+
+* Who?
+- I'm Terin!
+- Software Developer at Cloudflare
+- Been developing in Go since Go 1.4
+
+* Point Releases
+** Go 1.21.4 and Go 1.20.11
+- Fix to =net/http='s Pusher implementation causing connection resets in Firefox and Safari.
+- Various bug fixes to the compiler, linker, and runtime.
+
+*** Two security fixes to =path/filepath= package on Windows:
+- Incorrect parse of path prefix ~\??\~, leading to arbitrary file access.
+- Incorrect detection of reserved file names (eg, =COM1= and =LPT1=) as local in some circumstances.
+
+* Road to Go 1.22
+** Revised API for =math/rand/v2=
+- First standard library package to get a "v2" redesign.
+- Top-level functions were modified to make it easier to use.
+
+*** Focsed on being a psuedo-random number generate for non-cryptographic use cases (eg, simulations).
+- Removes ability to get random bytes by removing ~Rand.Read~.
+- Removes top-level ~Seed~, ~Rand.Seed~, and ~Source.Seed~.
+- Replaces ~Source.Int63~ with ~Source.Uint64~.
+- Removes the original Linear-Feedback Shift Register source, and adds [[https://www.pcg-random.org/][PCG-DXSM]] and [[https://cr.yp.to/chacha.html][ChaCha8]] as source options.
+
+** Experiment to extend for-range
+- Add compiler support for new for-range loops behind =GOEXPERIMENT=range= flag.
+
+*** range over integers
+The C-style loop over integers like
+
+#+BEGIN_SRC go
+for x := 0; x < 10; x++ { }
+#+END_SRC
+
+would become
+
+#+BEGIN_SRC go
+for x := range 10 {
+	// x will be in the range 0..n-1
+}
+#+END_SRC
+
+*** range over functions
+Allows looping over coroutine functions.
+
+#+BEGIN_SRC go
+type f function(yield func(T1, T2) bool) bool
+
+for x, y := range f {
+	// the control statements "break", "continue", "return"
+	// still work like normal within this for loop.
+}
+#+END_SRC
+
+- See Russ Cox's [[https://research.swtch.com/coro][Coroutines with Go]] blog post for more details.
+
+** TCP Keepalive Configuration
+- Go sets the TCP keepalive timeout (~TCP_KEEPINTVL~) to 15 seconds.
+  - Setting ~KeepAlive~ on ~net.Dialer~ allows sending keepalives more often.
+  - Reports from mobile users that this keeps devices and radios awake.
+- Proposal adds ~KeepAliveConfig~ option to ~net.Dialer~, and adds ~SetKeepAliveConfig~ on ~TCPConn~.
+
+*** Example configuring an HTTP client
+
+#+BEGIN_SRC go
+client := http.Client{
+	Transport: &http.Transport{
+		DialContext: &net.Dialer{
+			KeepAliveConfig: net.KeepAliveConfig{
+				Enable:   true,
+				Idle:     5*time.Second,
+				Interval: 30*time.Second,
+				Count:    3,
+			}
+		}
+	}
+}
+#+END_SRC
+
+** Adds =unique= package to intern values
+- Allows creating a weak reference to values by retaining references to Lisp-like symbols.
+- Brings a version of [[https://go4.org/intern][go4.org/intern]] to the standard library.
+- Can be used to weakly store one-copy of a string, with fast comparison.
+
+#+BEGIN_SRC go
+func (ip Addr) WithZone(zone string) Addr {
+    ip.z = unique.Make(zone)
+}
+#+END_SRC
+
+** Miscellenous Proposals
+- [[https://github.com/golang/go/issues/62244][Support for flaky tests]]
+- [[https://github.com/golang/go/issues/62577][Store debugging info in separate DWARF files on macOS]]
