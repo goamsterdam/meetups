@@ -10,7 +10,7 @@ Westerstraat 187
 
 Talks
 -----
-- Our Journey on Processing Digital Assets, by [Herlon Aguiar](https://www.linkedin.com/in/herlonaguiar/) (Creative Fabrica)
+- [Our Journey on Processing Digital Assets](our-journey-on-processing-digital-assets.pdf), by [Herlon Aguiar](https://www.linkedin.com/in/herlonaguiar/) (Creative Fabrica)
 - [Application testing with Go 1.20+](application-testing.pdf), by [Ilija Matoski](https://www.linkedin.com/in/ilijamt/)
 
 Lightning talks
