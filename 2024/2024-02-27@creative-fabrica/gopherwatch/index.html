@@ -1,0 +1,608 @@
+<!doctype html>
+<html>
+	<head>
+		<title>gopherwatch - go amsterdam meetup</title>
+		<meta charset="utf-8" />
+		<style>
+body, html { padding: 1em; font-size: 48px; line-height: 1.5; }
+* { font-size: inherit; font-family: ubuntu, lato, sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+h1 { font-size: 1.2rem; margin: -1.5em -1em .5em -1em; padding: 1em 1em 0.5em 1em; }
+h2 { font-size: 1.1rem; }
+h3, h4 { font-size: 1rem; }
+ul, ol { padding-left: 1rem; }
+.literal { display: inline-block; color: white; background-color: #222; padding: .25em .5em; border-radius: .25em; white-space: pre-wrap; font-size: .9em; tab-size: 4; }
+.literal, .literal * { font-family: 'ubuntu mono', monospace; }
+pre { color: white; background-color: #222; padding: .25em .5em; border-radius: .25em; white-space: pre-wrap; font-size: .9em; tab-size: 4; margin: 1ex 0; line-height: 1.2; }
+pre, pre * { font-family: 'ubuntu mono', monospace; }
+table.table td, table.table th { padding: .2em .5em; }
+table.table > tbody > tr:nth-child(odd) { background-color: #f8f8f8; }
+a { color: #0078bf; }
+pre a { color: #79cdff; }
+p { margin: 2ex 0; }
+[title] { text-decoration: underline; text-decoration-style: dotted; }
+@keyframes move {
+	0% { transform: scale3d(1, 1, 1)  }
+	6% { transform: scale3d(1.05, 1.05, 1.05) }
+	10% { transform: scale3d(1, 1, 1)  }
+}
+
+.topbar { background: linear-gradient(135deg, rgb(188, 26, 102) 0%, rgb(173, 122, 68) 100%); color: white; box-shadow: 0 0 30px #ccc; }
+.br { margin-bottom: 1.5ex; }
+.white { color: white; }
+.script-a { color: #0f0; }
+.script-b { color: #ffcb00; }
+.warning { display: inline-block; padding: .25em .5em; border-radius: .25em; background-color: #ff9292; }
+video, img { box-shadow: 0 0 30px #ccc; }
+		</style>
+	</head>
+	<body>
+
+		<script>
+const [dom, style, attr, prop] = (function() {
+function _domKids(e, ...kl) {
+	kl.forEach(k => {
+		if (typeof k === 'string' || k instanceof String) {
+			e.appendChild(document.createTextNode(k))
+		} else if (k instanceof Node) {
+			e.appendChild(k)
+		} else if (Array.isArray(k)) {
+			_domKids(e, ...k)
+		} else if (typeof k === 'function') {
+			if (!k.name) {
+				throw new Error('function without name', k)
+			}
+			e.addEventListener(k.name, k)
+		} else if (typeof k === 'object' && k !== null) {
+			if (k.root) {
+				e.appendChild(k.root)
+				return
+			}
+			for (const key in k) {
+				const value = k[key]
+				if (key === '_prop') {
+					for (const prop in value) {
+						e[prop] = value[prop]
+					}
+				} else if (key === '_attr') {
+					for (const prop in value) {
+						e.setAttribute(prop, value[prop])
+					}
+				} else if (key === '_listen') {
+					e.addEventListener(...value)
+				} else {
+					e.style[key] = value
+				}
+			}
+		} else {
+			console.log('bad kid', k)
+			throw new Error('bad kid')
+		}
+	})
+}
+const _dom = (kind, ...kl) => {
+	const t = kind.split('.')
+	const e = document.createElement(t[0])
+	for (let i = 1; i < t.length; i++) {
+		e.classList.add(t[i])
+	}
+	_domKids(e, kl)
+	return e
+}
+_dom._kids = function(e, ...kl) {
+	while(e.firstChild) {
+		e.removeChild(e.firstChild)
+	}
+	_domKids(e, kl)
+}
+const dom = new Proxy(_dom, {
+	get: function(dom, prop) {
+		if (prop in dom) {
+			return dom[prop]
+		}
+		const fn = (...kl) => _dom(prop, kl)
+		dom[prop] = fn
+		return fn
+	},
+	apply: function(target, that, args) {
+		if (args.length === 1 && typeof args[0] === 'object' && !Array.isArray(args[0])) {
+			return {_attr: args[0]}
+		}
+		return _dom(...args)
+	},
+})
+const style = x => x
+const attr = x => { return {_attr: x} }
+const prop = x => { return {_prop: x} }
+return [dom, style, attr, prop]
+})()
+
+const box = dom.div(style({position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}))
+const pagenumber = dom.div(style({position: 'absolute', left: '.25em', bottom: '.25em', color: '#aaa', fontSize: '.75em'}))
+const stepsbox = dom.div(style({position: 'absolute', marginLeft: '50%', bottom: '.25em', color: '#aaa', fontSize: '.75em'}))
+const timer = dom.div(style({position: 'absolute', right: '.25em', bottom: '.25em', color: '#aaa', fontSize: '.75em'}))
+const stepsline = dom.div(style({position: 'absolute', left: 0, bottom: 0, height: '5px', background: 'linear-gradient(135deg, rgb(188, 26, 102) 0%, rgb(173, 122, 68) 100%)'}))
+const pagesline = dom.div(style({position: 'absolute', left: 0, bottom: '5px', height: '5px', background: 'linear-gradient(135deg, rgb(188, 26, 102) 0%, rgb(173, 122, 68) 100%)'}))
+dom._kids(document.body, box, timer, stepsbox, pagenumber, stepsline, pagesline)
+
+const page = () => parseInt(location.hash.substr(1).split('.')[0])
+const step = () => parseInt(location.hash.substr(1).split('.')[1]) // 0 and 1 are treated the same, 0 for no explicit steps.
+
+let haveTimer = false
+const ensureTimer = () => {
+	if (haveTimer) {
+		return
+	}
+	haveTimer = true
+	let minutes = 0
+	const duration = () => {
+		dom._kids(timer, ''+minutes)
+	}
+	window.setInterval(() => {
+		minutes++
+		duration()
+	}, 60*1000)
+	duration()
+}
+const slideSteps = (p) => {
+	p = p || pages[page()]
+	const l = p.querySelectorAll('[data-step]')
+	if (!l.length) {
+		return 0
+	}
+	return parseInt(l.item(l.length-1).dataset.step)
+}
+const show = function(i) {
+	if (i < 0) {
+		i = 0
+	} else if (i >= pages.length) {
+		i = pages.length-1
+	}
+	location.hash = '#'+i+'.1'
+}
+const showStep = function(step) {
+	location.hash = '#'+page()+'.'+step
+}
+const render = () => {
+	const i = page()
+	if (i > 0) {
+		ensureTimer()
+	}
+	console.log('render', {i, page: pages[i]})
+
+	const s = step()
+	pages[i].querySelectorAll('[data-step]').forEach(e => {
+		e.style.visibility = s >= parseInt(e.dataset.step) ? 'visible' : 'hidden'
+	})
+
+	dom._kids(box, pages[i])
+	dom._kids(pagenumber, `${i+1}/${pages.length}`)
+	dom._kids(stepsbox, slideSteps() ? `${s}/${slideSteps()}` : '')
+	stepsline.style.width = slideSteps() ? '' + Math.round(100*s/slideSteps()) + '%' : '100%'
+	pagesline.style.width = Math.round(100*(i+1)/pages.length) + '%'
+}
+window.addEventListener('hashchange', function() {
+	render()
+})
+document.addEventListener('keydown', function(e) {
+	console.log('keypress', e)
+	if (e.isComposing || e.altKey || e.ctrlKey || e.metaKey) {
+		return
+	}
+	switch (e.key) {
+	default:
+		return;
+	case 'ArrowLeft':
+		{
+			const s = step()
+			if (s === undefined || s <= 1) {
+				show(page()-1)
+			} else {
+				showStep(s-1)
+			}
+		}
+		break
+	case 'ArrowRight':
+		{
+			const s = step()
+			if (s !== undefined && s < slideSteps()) {
+				showStep(s+1)
+			} else if (page()+1 < pages.length) {
+				show(page()+1)
+			}
+		}
+		break
+	case 'ArrowUp':
+		if (step() > 1) {
+			showStep(1)
+		} else {
+			show(page()-1)
+		}
+		break
+	case 'ArrowDown':
+		if (step() < slideSteps()) {
+			showStep(slideSteps())
+		} else {
+			show(page()+1)
+		}
+		break
+	case '0':
+	case 'Home':
+		show(0)
+		break
+	case '$':
+	case 'End':
+		{
+			const i = pages.length-1
+			location.hash = '#'+i+'.1'
+		}
+		break
+	case 'PageUp':
+		show(Math.floor(page()-pages.length/4))
+		break
+	case 'PageDown':
+		show(Math.ceil(page()+pages.length/4))
+		break
+	}
+	e.preventDefault()
+})
+
+const link = (s) => dom.a(attr({href: s}), s)
+const link2 = (a, b) => dom.a(attr({href: 'https://'+a+b}), a, dom.b(b))
+
+const middle = (...l) => dom.div(
+	style({
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: '100vh',
+	}),
+	dom.div(style({textAlign: 'center'}), l),
+)
+
+const slide = fn => {
+	const x = {
+		seq: 1,
+		nextStep: function() { return attr({'data-step': ''+ (this.seq++)}) },
+		prevStep: function() { return attr({'data-step': ''+ this.seq-1}) },
+		peekStep: function() { return attr({'data-step': ''+ this.seq}) },
+		steps: function(...l) {
+			return l.map(e => { e.dataset.step = ''+(this.seq++); return e })
+		},
+	}
+	return dom.div(
+		style({
+			padding: '1em',
+			width: '100%',
+			height: '100vh',
+		}),
+		fn(x)
+	)
+}
+
+const blue = (s) => dom.span(style({color: '#79cdff'}), s)
+const green = (s) => dom.span(style({color: '#82ff82'}), s)
+const red = (s) => dom.span(style({color: '#ff8282'}), s)
+const purple = (s) => dom.span(style({color: '#d282ff'}), s)
+const grey = (s) => dom.span(style({color: '#888'}), s)
+
+var pages = [
+	dom.div(
+		style({background: 'linear-gradient(135deg, rgb(188, 26, 102) 0%, rgb(173, 122, 68) 100%)', color: 'white', textShadow: '#00000080 0 0 2em'}),
+		middle(
+			dom.div(style({fontSize: '4em', lineHeight: 1, animation: 'move 5s ease-in-out infinite'}), dom.div('gopherwatch.org')),
+			dom.br(),
+			dom.div(style({fontSize: '2em'}), 'Keeping tabs on Go modules'),
+			dom.div(dom.a('www.gopherwatch.org', attr({href: 'https://www.gopherwatch.org'}), style({color: 'white'}))),
+			dom.div(dom.a('github.com/mjl-/gopherwatch', attr({href: 'https://github.com/mjl-/gopherwatch'}), style({color: 'white'}))),
+			dom.div('Mechiel Lukkien, mechiel@ueber.net'),
+		),
+	),
+
+	slide(x => [
+		dom('h1.topbar', 'How are you keeping tabs on Go modules?'),
+		dom.ul(x.nextStep(),
+			dom.li(x.nextStep(), 'Run "go get -u" once in a while?'),
+			dom.li(x.nextStep(), 'govulncheck?'),
+			dom.li(x.nextStep(), '"Watch" repositories on github?'),
+			dom.li(x.nextStep(), "Dependabot PR's?"),
+			dom.li(x.nextStep(), "Subscribe to project mailing lists?"),
+			dom.li(x.nextStep(), "RSS feeds?"),
+			dom.li(x.nextStep(), 'Wait for users to complain?'),
+			dom.li(x.nextStep(), "Just don't care?"),
+			dom.li(x.nextStep(), 'Tell me!'),
+			dom.li(x.nextStep(), 'gopherwatch.org!'),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'How to'),
+		dom.ul(
+			x.steps(
+				dom.li('Create account'),
+				dom.li('Subscribe to Go module paths'),
+				dom.li('Receive email when new module/version is published'),
+			),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Notification'),
+		dom.div(
+			dom.img(attr({src: 'gopherwatch-email.png'})),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Subscriptions'),
+		dom.img(attr({src: 'gopherwatch-subscriptions.png'})),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Why use this?'),
+		dom.p('To find...'),
+		dom.ul(
+			x.nextStep(),
+			x.steps(
+				dom.li('New versions for software you use (commands)'),
+				dom.li('New versions of dependencies you use'),
+				dom.li('New modules published by your organization/friends/self'),
+			),
+		),
+	]),
+
+/*
+	slide(x => [
+		dom('h1.topbar', 'Notification "when a new module/version is published"?'),
+ 		dom.p('This raises questions!'),
+		dom.ul(
+			x.nextStep(),
+			x.steps(
+				dom.li('What is a module/version?'),
+				dom.li('How are they "published"?'),
+				dom.li('How does GopherWatch find modules?'),
+			),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'The basics'),
+		x.steps(
+			dom.p('What is a Go module?'),
+			dom.p('A unit of (versioned) Go software. Possibly multiple (sub)packages.'),
+			dom.pre(`$ go mod init github.com/mjl-/demomod
+go: creating new go.mod: module github.com/mjl-/demomod`),
+			dom.pre(`$ ls
+go.mod`),
+			dom.pre(`$ cat go.mod
+module github.com/mjl-/demomod`),
+			dom.div(
+				dom.p('Write code. Commit. Tag version. Push.', dom.br(), 'Now others can use your module.'),
+			),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Using Go modules (dependencies)'),
+		dom.p(x.nextStep(), 'New module github.com/mjl-/myapp. Write main.go:'),
+		dom.pre(x.nextStep(), style({lineHeight: 1.2}), dom.div(`package main
+
+import (
+        "fmt"
+
+        "golang.org/x/exp/slices"
+        "golang.org/x/exp/maps"
+)
+`), dom.div(style({color: '#888'}), `
+func main() {
+        m := map[string]int{"a": 2, "b": 1}
+        l := maps.Keys(m)
+        slices.Reverse(l)
+        fmt.Println(l)
+}`)),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Retrieving dependencies: go get'),
+		x.steps(
+			dom.pre(`$ ls
+go.mod  main.go`),
+			dom.pre(`$ go get
+go: downloading `, blue('golang.org/x/exp'), green(' v0.0.0-20240222234643-814bf88cf225'), `
+go: added `, blue('golang.org/x/exp'), green(' v0.0.0-20240222234643-814bf88cf225')),
+			dom.pre(`$ ls
+go.mod  go.sum  main.go`),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'go.mod and go.sum'),
+		x.steps(
+			dom.pre(`$ cat go.mod
+module github.com/mjl-/myapp
+
+go 1.22.0
+
+require `, blue('golang.org/x/exp'), green(' v0.0.0-20240222234643-814bf88cf225')),
+			dom.pre(`$ cat go.sum
+`, blue('golang.org/x/exp'), green(' v0.0.0-20240222234643-814bf88cf225'), red(' h1:LfspQV/FYTatPTr/3HzIcmiUFH7PGP+OQ6mgDYo3yuQ='), `
+`, blue('golang.org/x/exp'), green(' v0.0.0-20240222234643-814bf88cf225'), purple('/go.mod'), red(' h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=')),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', "Where is this version & code coming from? Try again: go get -x"),
+		// GOENV=$PWD/tmp/goenv GOCACHE=$PWD/tmp/gocache GOMODCACHE=$PWD/tmp/gomodcache 
+		dom.div(x.nextStep()),
+		dom.pre(x.nextStep(), style({fontSize: '.65em', lineHeight: 1.1}), `$ go get -x`),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', "Where is this coming from? Try again: go get -x"),
+		// GOENV=$PWD/tmp/goenv GOCACHE=$PWD/tmp/gocache GOMODCACHE=$PWD/tmp/gomodcache 
+		dom.pre(style({fontSize: '.65em', lineHeight: 1.1}), `$ go get -x
+# get https://proxy.golang.org/golang.org/x/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list
+# get https://proxy.golang.org/golang.org/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list: 200 OK (0.034s)
+# get https://proxy.golang.org/golang.org/x/exp/@latest
+# get https://proxy.golang.org/golang.org/x/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list: 404 Not Found (0.035s)
+# get `, link('https://proxy.golang.org/golang.org/x/exp/@latest'), `: 200 OK (0.006s)
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod: 200 OK (0.006s)
+`)
+	]),
+
+	slide(x => [
+		dom('h1.topbar', "Where is this coming from? Try again: go get -x"),
+		// GOENV=$PWD/tmp/goenv GOCACHE=$PWD/tmp/gocache GOMODCACHE=$PWD/tmp/gomodcache 
+		dom.pre(style({fontSize: '.65em', lineHeight: 1.1}), grey(`$ go get -x
+# get https://proxy.golang.org/golang.org/x/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list
+# get https://proxy.golang.org/golang.org/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list: 200 OK (0.034s)
+# get https://proxy.golang.org/golang.org/x/exp/@latest
+# get https://proxy.golang.org/golang.org/x/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/@latest: 200 OK (0.006s)
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod: 200 OK (0.006s)
+# get https://proxy.golang.org/sumdb/sum.golang.org/supported
+# get https://proxy.golang.org/sumdb/sum.golang.org/supported: 404 Not Found (0.006s)
+`), `# get https://sum.golang.org/tile/8/0/x090/164.p/194
+# get https://sum.golang.org/tile/8/2/001.p/96
+# get https://sum.golang.org/tile/8/3/000.p/1
+# get https://sum.golang.org/tile/8/1/352.p/52
+# get https://sum.golang.org/tile/8/0/x090/164.p/194: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/3/000.p/1: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/1/352.p/52: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/2/001.p/96: 200 OK (0.030s)
+# get https://sum.golang.org/lookup/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225
+# get `, link('https://sum.golang.org/lookup/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225'), `: 200 OK (0.007s)
+# get https://sum.golang.org/tile/8/0/x089/985
+# get https://sum.golang.org/tile/8/1/351
+# get https://sum.golang.org/tile/8/0/x089/985: 200 OK (0.006s)
+# get https://sum.golang.org/tile/8/1/351: 200 OK (0.007s)
+`)
+	]),
+
+	slide(x => [
+		dom('h1.topbar', "Where is this coming from? Try again: go get -x"),
+		// GOENV=$PWD/tmp/goenv GOCACHE=$PWD/tmp/gocache GOMODCACHE=$PWD/tmp/gomodcache 
+		dom.pre(style({fontSize: '.65em', lineHeight: 1.1}), grey(`$ go get -x
+# get https://proxy.golang.org/golang.org/x/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list
+# get https://proxy.golang.org/golang.org/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list
+# get https://proxy.golang.org/golang.org/x/exp/@v/list: 200 OK (0.034s)
+# get https://proxy.golang.org/golang.org/x/exp/@latest
+# get https://proxy.golang.org/golang.org/x/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/slices/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/maps/@v/list: 404 Not Found (0.035s)
+# get https://proxy.golang.org/golang.org/x/exp/@latest: 200 OK (0.006s)
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.mod: 200 OK (0.006s)
+# get https://proxy.golang.org/sumdb/sum.golang.org/supported
+# get https://proxy.golang.org/sumdb/sum.golang.org/supported: 404 Not Found (0.006s)
+# get https://sum.golang.org/tile/8/0/x090/164.p/194
+# get https://sum.golang.org/tile/8/2/001.p/96
+# get https://sum.golang.org/tile/8/3/000.p/1
+# get https://sum.golang.org/tile/8/1/352.p/52
+# get https://sum.golang.org/tile/8/0/x090/164.p/194: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/3/000.p/1: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/1/352.p/52: 200 OK (0.029s)
+# get https://sum.golang.org/tile/8/2/001.p/96: 200 OK (0.030s)
+# get https://sum.golang.org/lookup/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225
+# get https://sum.golang.org/lookup/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225: 200 OK (0.007s)
+# get https://sum.golang.org/tile/8/0/x089/985
+# get https://sum.golang.org/tile/8/1/351
+# get https://sum.golang.org/tile/8/0/x089/985: 200 OK (0.006s)
+# get https://sum.golang.org/tile/8/1/351: 200 OK (0.007s)
+`), `go: downloading golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.zip
+# get https://proxy.golang.org/golang.org/x/exp/@v/v0.0.0-20240222234643-814bf88cf225.zip: 200 OK (0.008s)
+go: added golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
+`)
+	]),
+
+
+	slide(x => [
+		dom('h1.topbar', 'sum.golang.org'),
+		x.steps(
+			dom.p('Dependencies are fetched through the Go module proxy.'),
+			dom.p('The hashes of contents of dependencies are looked up in the sum database, sum.golang.org.'),
+			dom.p('Append-only transparency log, containing all Go modules/versions and sums.'),
+			dom.p('You can verify it is append-only! And signed by sum.golang.org. Cool crypto!'),
+			dom.p('Similar to certificate transparency logs, for TLS certificates and their domains. See ', link('https://crt.sh.')),
+		),
+	]),
+
+*/
+
+	slide(x => [
+		dom('h1.topbar', 'How does GopherWatch work?'),
+		dom.ul(
+			dom.li(x.nextStep(),
+				'Tracks sum.golang.org, the sum database:',
+				dom.ul(
+					x.steps(
+						dom.li('Contains Go module/versions and their sum (for go.sum)'),
+						dom.li('Transparency log'),
+						dom.li('Verifiably append-only'),
+						dom.li('Signed by sum.golang.org'),
+						dom.li('GopherWatch periodically fetches ', link('https://sum.golang.org/latest'), ' and verifies'),
+					),
+				),
+			),
+			dom.li(x.nextStep(), 'Read all newly appended records (modules/versions with sums).'),
+			dom.li(x.nextStep(), 'Match them against subscriptions.'),
+			dom.li(x.nextStep(), 'Send out emails!'),
+		),
+	]),
+
+	slide(x => [
+		dom('h1.topbar', 'Limitations'),
+		dom.p('No guarantee to find all modules/versions:'),
+		dom.ul(
+			dom.li('Need "go get" or "go install"'),
+			dom.li('$GONOPROXY'),
+		),
+	]),
+
+
+	slide(x => [
+		dom('h1.topbar', 'Help plx'),
+		x.steps(
+			dom.div('Spare some time?'),
+			dom.div('Write some code!'),
+			dom.div('See github issues.'),
+			dom.p(
+				dom.div(dom.a(attr({href: 'https://github.com/mjl-/gopherwatch'}), 'https://github.com/mjl-/gopherwatch')),
+				dom.div(dom.a(attr({href: 'https://www.gopherwatch.org'}), 'https://www.gopherwatch.org')),
+			),
+			dom.div('Give it a try. Let me know what you think/need/miss.'),
+			dom.div('mechiel@ueber.net or admin@gopherwatch.org'),
+		),
+	]),
+]
+
+if (location.hash === '') {
+	location.hash = '#0.1'
+} else {
+	render()
+}
+		</script>
+	</body>
+</html>
+
