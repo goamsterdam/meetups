@@ -20,6 +20,7 @@ Lightning talks
 
 Other slides
 ------------
+* [Meetup intro slides](intro-slides.pdf), by [Jonathan Hall](https://github.com/flimzy)
 
 Video
 -----
