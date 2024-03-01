@@ -16,7 +16,7 @@ Talks
 Lightning talks
 --------------
 - [Launch party for GopherWatch](gopherwatch/index.html) - keeping tabs on Go modules, by [Mechiel Lukkien](https://github.com/mjl-).
-- What's new in Go, by [Ernest Micklei](https://www.linkedin.com/in/ernest-micklei-25ab9a/)?
+- [What's new in Go](go-release-1-22.pdf), by [Ernest Micklei](https://www.linkedin.com/in/ernest-micklei-25ab9a/)?
 
 Other slides
 ------------
