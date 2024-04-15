@@ -10,7 +10,7 @@ TNW City, Singel 542
 
 Talks
 -----
-- Contexts, buffered channels, concurrency and lifetime in Go at scale, by [Johan Stokking](https://github.com/johanstokking)
+- [Contexts, buffered channels, concurrency and lifetime in Go at scale](cbcc-tti.pdf), by [Johan Stokking](https://github.com/johanstokking)
 - [Hugot: huggingface transformer pipelines in Go](hugot.pdf), by [Riccardo Pinosio](https://github.com/riccardopinosio)
 
 Lightning talks
