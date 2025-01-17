@@ -10,7 +10,7 @@ Neptunusstraat 41-63
 
 Talks
 -----
-- [TinyGo, WebAssembly, and gamedev](todo.pdf), by Gram
+- [TinyGo, WebAssembly, and gamedev](tinygo-wasm-and-gamedev.pdf), by [Gram](https://github.com/orsinium)
 - [Building web apps in Go, a story about small social network (pcom)](web-apps-in-go.pdf), by Dmitrii Petrov
 
 Lightning talks
