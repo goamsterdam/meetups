@@ -16,7 +16,7 @@ Talks
 Lightning talks
 --------------
 - [What's new in Go](Go-124.pdf) by George Sereda
-- [Go struct Explorer Service](todo.pdf), by [Ernest Micklei](https://github.com/emicklei)
+- [Go struct Explorer Service](StructExplorerEmickleiJan2025.pdf), by [Ernest Micklei](https://github.com/emicklei)
 
 Other slides
 ------------
