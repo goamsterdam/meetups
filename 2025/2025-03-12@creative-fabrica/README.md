@@ -10,7 +10,7 @@ Westerstraat 187
 
 Talks
 -----
-- [The powerful toolset of the go-mysql library](go-mysql.pdf), by Daniël van Eeden
+- [The powerful toolset of the go-mysql library](go-mysql.pdf), by [Daniël van Eeden](https://github.com/dveeden/)
 - How we built Gopher-Verse, by [Herlon Aguiar](https://www.linkedin.com/in/herlonaguiar/) (Creative Fabrica)
 
 Lightning talks
