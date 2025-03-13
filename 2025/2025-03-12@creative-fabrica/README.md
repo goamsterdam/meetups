@@ -16,7 +16,7 @@ Talks
 Lightning talks
 --------------
 - What's new in Go, by Raiza Claudino
-- Evolution of Map in Go, by George Sereda
+- [Evolution of Map in Go](Evolution of Map in Go.pdf), by [George Sereda](https://www.linkedin.com/in/george-sereda/)
 
 Other slides
 ------------
