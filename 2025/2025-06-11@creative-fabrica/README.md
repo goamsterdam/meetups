@@ -16,7 +16,7 @@ Talks
 Lightning talks
 --------------
 - [What's new in Go](whats-new-in-go.pdf), by [Aleks Yanchuk](https://github.com/aliakseiyanchuk)
-- Device Monitoring using osquery-go, by Mohammed Nafees
+- [Device Monitoring using osquery-go](device-monitoring-osquery.pdf), by [Mohammed Nafees](https://www.linkedin.com/in/mdnafees)
 
 Other slides
 ------------
