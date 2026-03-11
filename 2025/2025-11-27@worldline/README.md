@@ -11,7 +11,7 @@ Neptunusstraat 41-63
 Talks
 -----
 - "Processing massive number of messages from KAFKA using GO", by Eray Ates
-- "Create your first Linter", by Manuel Doncel Martos
+- [Create your first Linter](https://manuelarte.github.io/presentation-create-your-first-linter/), by Manuel Doncel Martos
 
 Lightning talks
 --------------
