@@ -13,7 +13,7 @@ Talks
 - "I Used to Hate Go: What Changed My Mind as a Java Developer" by Kubilay Karpat
 - ["The New Green Tea GC: Matcha Made in Heaven"](the-new-green-tea-gc-mohammed-nafees.pdf) by Mohammed Nafees
 
-- "Real-time voice AI agents with Go" by David Stotijn
+- ["Real-time voice AI agents with Go"](real-time-voice-ai-agents-in-go.pdf) by David Stotijn
 - ["What's new in Go"](whats-new-in-go-2026-apr.pdf), by Mechiel Lukkien
 
 Meetup
