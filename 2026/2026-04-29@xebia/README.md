@@ -10,7 +10,7 @@ Amsterdam
 
 Talks
 -----
-- "I Used to Hate Go: What Changed My Mind as a Java Developer" by Kubilay Karpat
+- ["I Used to Hate Go: What Changed My Mind as a Java Developer"](i-used-to-hate-golang.pdf) by Kubilay Karpat
 - ["The New Green Tea GC: Matcha Made in Heaven"](the-new-green-tea-gc-mohammed-nafees.pdf) by Mohammed Nafees
 
 - ["Real-time voice AI agents with Go"](real-time-voice-ai-agents-in-go.pdf) by David Stotijn
