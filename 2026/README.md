@@ -3,6 +3,7 @@ Golang Amsterdam - 2026
 
 Please maintain the list in a descending order based on the date the meetup has been held
 
+* [2026-06-23 at ING](2026-06-23@ing/README.md)
 * [2026-04-29 at Xebia](2026-04-29@xebia/README.md)
 * [2026-03-10 at Silverflow](2026-03-10@silverflow/README.md)
 

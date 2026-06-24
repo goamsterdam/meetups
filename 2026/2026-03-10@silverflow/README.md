@@ -16,7 +16,11 @@ Talks
 
 Lightning talks
 --------------
-- What's new in Go, by Ilija Matoski
+* [What's new in Go](./whats-new-in-go.pdf), by [Ilija Matoski](https://www.linkedin.com/in/ilijamt/)
+
+Other slides
+------------
+* [Meetup intro slides](intro-slides.pdf), by Mechiel Lukkien
 
 Meetup
 ------

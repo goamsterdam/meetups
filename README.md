@@ -36,6 +36,7 @@ Questions? Want to speak at or host a future event? Contact the [ORGANIZERS](ORG
 
 Slides for past events:
 
+* [2026-06-23 at ING](2026/2026-06-23@ing/README.md)
 * [2026-04-29 at Xebia](2026/2026-04-29@xebia/README.md)
 * [2026-03-10 at Silverflow](2026/2026-03-10@silverflow/README.md)
 * [2025-11-27 at Worldline](2025/2025-11-27@worldline/README.md)
