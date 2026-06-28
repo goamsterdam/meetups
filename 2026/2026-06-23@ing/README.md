@@ -12,7 +12,7 @@ Bijlmerdreef 106,
 Talks
 -----
 - "Go and WebASM - The 5 Hells of Web Assembly" - by Cookie Engineer
-- "Going back to First Principles - Writing Go apps in the age of AI" - by Frank Schröder
+- [Going back to First Principles - Writing Go apps in the age of AI](./go-development-in-the-age-of-ai.pdf) - by Frank Schröder
 
 Lightning talks
 ---------------
