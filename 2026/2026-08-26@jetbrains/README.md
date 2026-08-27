@@ -10,7 +10,7 @@ Huidekoperstraat 26-28
 
 Talks
 -----
-- "The Curious Case of the Missing Memory" by [Mohammed Nafees](https://www.linkedin.com/in/mdnafees)
+- ["The Curious Case of the Missing Memory"](the-curios-case-of-missing-memory.pdf) by [Mohammed Nafees](https://www.linkedin.com/in/mdnafees)
 - ["Deep dive into the select statement"](deep-dive-into-the-select-statement.pdf) by [Jesús Espino](https://www.linkedin.com/in/jesus-espino) ([Blog](https://internals-for-interns.com), [X](https://x.com/jespinog))
 - "How to Stay Passionate in Tech in the Age of AI" by [Ainsley Clark](https://www.linkedin.com/in/ainsleyclark)
 
