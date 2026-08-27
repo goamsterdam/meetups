@@ -14,6 +14,10 @@ Talks
 - ["Deep dive into the select statement"](deep-dive-into-the-select-statement.pdf) by [Jesús Espino](https://www.linkedin.com/in/jesus-espino) ([Blog](https://internals-for-interns.com), [X](https://x.com/jespinog))
 - "How to Stay Passionate in Tech in the Age of AI" by [Ainsley Clark](https://www.linkedin.com/in/ainsleyclark)
 
+Other slides
+------------
+* [Meetup intro slides](intro-slides.pdf), by [Ilija Matoski](https://www.linkedin.com/in/ilijamt/)
+
 Meetup
 ------
 https://www.meetup.com/golang-amsterdam/events/316121100/
