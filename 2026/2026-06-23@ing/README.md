@@ -16,7 +16,7 @@ Talks
 
 Lightning talks
 ---------------
-- "Logging Sucks (In Go)" by Manuel Doncel Martos
+- [Logging Sucks (In Go)](./logging-sucks-in-go.pdf), by [Manuel Doncel Martos](https://github.com/manuelarte)
 - [What's new in Go](./whats-new-in-go.pdf), by Loes Alleman
 
 Other slides
